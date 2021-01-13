@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/salesman-deploy/static/css/main.8cf07e98.chunk.css",
+    "main.js": "/salesman-deploy/static/js/main.b1258523.chunk.js",
+    "main.js.map": "/salesman-deploy/static/js/main.b1258523.chunk.js.map",
+    "runtime-main.js": "/salesman-deploy/static/js/runtime-main.80f47ba3.js",
+    "runtime-main.js.map": "/salesman-deploy/static/js/runtime-main.80f47ba3.js.map",
+    "static/js/2.a1b40fbd.chunk.js": "/salesman-deploy/static/js/2.a1b40fbd.chunk.js",
+    "static/js/2.a1b40fbd.chunk.js.map": "/salesman-deploy/static/js/2.a1b40fbd.chunk.js.map",
+    "static/js/3.1724e1c2.chunk.js": "/salesman-deploy/static/js/3.1724e1c2.chunk.js",
+    "static/js/3.1724e1c2.chunk.js.map": "/salesman-deploy/static/js/3.1724e1c2.chunk.js.map",
+    "index.html": "/salesman-deploy/index.html",
+    "static/css/main.8cf07e98.chunk.css.map": "/salesman-deploy/static/css/main.8cf07e98.chunk.css.map",
+    "static/js/2.a1b40fbd.chunk.js.LICENSE.txt": "/salesman-deploy/static/js/2.a1b40fbd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.80f47ba3.js",
+    "static/js/2.a1b40fbd.chunk.js",
+    "static/css/main.8cf07e98.chunk.css",
+    "static/js/main.b1258523.chunk.js"
+  ]
+}
