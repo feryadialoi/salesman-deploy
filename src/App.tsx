@@ -14,7 +14,7 @@ import OrderPage from "./pages/OrderPage";
 
 const App = () => {
     return (
-        <HashRouter>
+        <HashRouter basename="/">
             <Switch>
                 <PrivateRoute component={HomePage} path="/" exact />
                 <PrivateRoute component={OrderPage} path="/orders" exact />
