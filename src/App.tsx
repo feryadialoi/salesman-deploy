@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NotFoundRoute from "./components/routes/NotFoundRoute";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import PublicRoute from "./components/routes/PublicRoute";
@@ -14,7 +14,7 @@ import OrderPage from "./pages/OrderPage";
 
 const App = () => {
     return (
-        <Router>
+        <HashRouter>
             <Switch>
                 <PrivateRoute component={HomePage} path="/" exact />
                 <PrivateRoute component={OrderPage} path="/orders" exact />
@@ -28,7 +28,7 @@ const App = () => {
                 <PublicRoute component={LoginPage} path="/login" exact />
                 <Route component={NotFoundRoute} />
             </Switch>
-        </Router>
+        </HashRouter>
     );
 };
 
