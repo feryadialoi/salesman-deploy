@@ -10,4 +10,6 @@ export interface OrderLocalPersistent {
     getOrders(): Order[];
 
     removeOrder(order: Order): void;
+
+    getOrderById(id: number): Order;
 }

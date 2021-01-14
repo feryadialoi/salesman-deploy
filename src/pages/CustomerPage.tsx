@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Body } from "../components/Body";
 import { Container } from "../components/Container";
 import { Footer } from "../components/Footer";
@@ -12,6 +13,7 @@ import { useCustomerService } from "../services/impl/CustomerServiceImpl";
 
 const CustomerPage = () => {
     // service
+    const history = useHistory();
     const customerService = useCustomerService();
 
     // state
@@ -61,7 +63,13 @@ const CustomerPage = () => {
                 <List
                     data={customerReduxCustomers}
                     render={(item, itemIndex) => (
-                        <div className="shadow mb-4 p-2 rounded" key={itemIndex}>
+                        <div
+                            onClick={() => {
+                                history.push("/customers/" + item.id);
+                            }}
+                            className="shadow mb-4 p-2 rounded"
+                            key={itemIndex}
+                        >
                             <div>{item.name}</div>
                         </div>
                     )}

@@ -3,9 +3,13 @@ import { Order } from "../models/Order";
 import { Product } from "../models/Product";
 
 export interface OrderService {
-    storeOrder(order: Order): void;
+    storeOrder(order: Order): Promise<void>;
 
     getProducts(): Promise<Product[]>;
 
     getCustomers(): Promise<Customer[]>;
+
+    getOrderLocalPersistentById(id: number): Promise<Order>;
+
+    getOrdersLocalPersistent(): Order[];
 }

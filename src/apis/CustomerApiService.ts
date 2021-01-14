@@ -6,4 +6,8 @@ export class CustomerApiService extends ApiService {
     public async getCustomers(): Promise<Customer[]> {
         return DummyCustomers.getCustomers();
     }
+
+    public async getCustomerById(id: number): Promise<Customer> {
+        return (await this.getCustomers()).filter((customer) => customer.id === id)[0];
+    }
 }

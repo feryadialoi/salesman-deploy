@@ -15,13 +15,13 @@ export class OrderServiceImpl implements OrderService {
     private productApiService: ProductApiService = new ProductApiService();
     private customerApiService: CustomerApiService = new CustomerApiService();
 
-    storeOrder(order: Order): void {
+    storeOrder(order: Order): Promise<void> {
         console.log("store order", order);
 
         this.orderLocalPersistent.setOrder(order);
 
         const orderRequest = new OrderRequest(order.customerId, order.orderItems);
-        this.orderApiService
+        return this.orderApiService
             .storeOrder(orderRequest)
             .then((result) => {
                 // sucess, remove local order data
@@ -42,6 +42,14 @@ export class OrderServiceImpl implements OrderService {
 
     getCustomers(): Promise<Customer[]> {
         return this.customerApiService.getCustomers();
+    }
+
+    async getOrderLocalPersistentById(id: number): Promise<Order> {
+        return this.orderLocalPersistent.getOrderById(id);
+    }
+
+    getOrdersLocalPersistent(): Order[] {
+        return this.orderLocalPersistent.getOrders();
     }
 }
 

@@ -22,10 +22,12 @@ export const AlertBox: FC<AlertBoxProps> = (props) => {
                 flex
                 flex-col
                 justify-center
+                items-center
             "
         >
             <div
                 className="
+                    max-w-xs
                     bg-white
                     flex
                     flex-col

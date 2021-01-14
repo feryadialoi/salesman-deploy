@@ -86,6 +86,18 @@ const CreateOrderPage = () => {
         const cartItem = new CartItem(product, product.quantity);
 
         dispatch(addCartItemsOfCartReducer(cartItem));
+
+        resetProductQuantity(index);
+    };
+
+    const resetProductQuantity = (index: number) => {
+        productReduxProducts[index].quantity = 1;
+        dispatch(setProductsOfProductReducer([...productReduxProducts]));
+    };
+
+    const resetAllProductsQuantity = () => {
+        const products = productReduxProducts.map((product) => ({ ...product, quantity: 1 }));
+        dispatch(setProductsOfProductReducer([...products]));
     };
 
     const incrementProductQuantity = (product: Product, index: number) => {
@@ -129,8 +141,16 @@ const CreateOrderPage = () => {
             const orderItems = cartReduxCartItems.map(
                 (cartItem) => new OrderItem(1, cartItem.product, cartItem.quantity),
             );
-            const order = new Order(2, customer?.id!, orderItems);
-            orderService.storeOrder(order);
+            const order = new Order(Date.now(), customer?.id!, orderItems);
+            orderService
+                .storeOrder(order)
+                .then(() => {
+                    setCustomer(undefined);
+                    dispatch(clearCartItemsOfCartReducer());
+                })
+                .catch((error) => {
+                    //
+                });
         } else {
             if (!customer) {
                 console.log("customer not");
@@ -148,13 +168,14 @@ const CreateOrderPage = () => {
         initData();
     }, []);
 
-    return loading ? (
-        <Container>
-            <Body>
-                <div>loading...</div>
-            </Body>
-        </Container>
-    ) : (
+    //  loading ? (
+    //     <Container>
+    //         <Body>
+    //             <div>loading...</div>
+    //         </Body>
+    //     </Container>
+    // ) :
+    return (
         <Container>
             <AlertBox
                 title="Kesalahan"
@@ -249,6 +270,7 @@ const CreateOrderPage = () => {
                 }
                 onClose={() => {
                     isProductVisible(false);
+                    resetAllProductsQuantity();
                 }}
             />
 
@@ -291,12 +313,12 @@ const CreateOrderPage = () => {
                     <List
                         data={cartReduxCartItems}
                         render={(item, itemIndex) => (
-                            <div key={itemIndex} className="flex shadow">
+                            <div key={itemIndex} className="flex mb-4 p-2 shadow">
                                 <div className="flex-1">
                                     <div>{item.product.name}</div>
                                     <div>{item.product.price}</div>
                                 </div>
-                                <div className="flex p-2">
+                                <div className="flex p-2 items-center">
                                     <ButtonMinus
                                         onClick={() => {
                                             //
@@ -304,7 +326,7 @@ const CreateOrderPage = () => {
                                             decrementCartItemQuantity(itemIndex);
                                         }}
                                     />
-                                    <div>{item.quantity}</div>
+                                    <div className="p-2">{item.quantity}</div>
                                     <ButtonAdd
                                         onClick={() => {
                                             //
@@ -312,14 +334,16 @@ const CreateOrderPage = () => {
                                             incrementCartItemQuantity(itemIndex);
                                         }}
                                     />
-                                    <ButtonTrash
-                                        onClick={() => {
-                                            // delete
-                                            console.log("%c remove", "color:pink");
+                                    <div className="p-2">
+                                        <ButtonTrash
+                                            onClick={() => {
+                                                // delete
+                                                console.log("%c remove", "color:pink");
 
-                                            removeCartItem(itemIndex);
-                                        }}
-                                    />
+                                                removeCartItem(itemIndex);
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         )}

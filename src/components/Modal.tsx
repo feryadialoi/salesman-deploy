@@ -14,13 +14,14 @@ export const Modal: FC<ModalProps> = (props) => {
             className="
                 bg-opacity-80
                 absolute
-                h-screen
                 w-screen
+                h-screen
                 px-4
                 py-8
                 bg-gray-900
                 flex
                 flex-col
+                justify-center
             "
         >
             <div

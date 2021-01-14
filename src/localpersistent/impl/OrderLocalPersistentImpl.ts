@@ -39,4 +39,8 @@ export class OrderLocalPersistentImpl implements OrderLocalPersistent {
         const newOrders = orders.filter((item) => item.id === order.id && item.customerId === order.customerId);
         this.setOrders(newOrders);
     }
+
+    getOrderById(id: number): Order {
+        return this.getOrders().filter((order) => order.id === id)[0];
+    }
 }
