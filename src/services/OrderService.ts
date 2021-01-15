@@ -14,4 +14,6 @@ export interface OrderService {
     getOrdersLocalPersistent(): Order[];
 
     getPurchases(): Promise<Order[]>;
+
+    getPurchaseLocalPersistentById(id: number): Promise<Order>;
 }

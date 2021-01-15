@@ -31,12 +31,22 @@ const OrderDetailPage = () => {
     const [loading, isLoading] = useState(false);
 
     // local method
+    const getOrders = (done: boolean) => {
+        if (done) {
+            return orderService.getPurchaseLocalPersistentById(+params.orderId);
+        } else {
+            return orderService.getOrderLocalPersistentById(+params.orderId);
+        }
+    };
+
     const initData = () => {
+        const done = new URLSearchParams(location.search).get("done");
         Promise.all([
             //
-            orderService.getOrderLocalPersistentById(+params.orderId),
+            getOrders(done === "true"),
         ])
             .then(([_order]) => {
+                console.log("_order", _order);
                 setOrder(_order);
                 isLoading(false);
             })
