@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/salesman-deploy/static/css/main.50e62941.chunk.css",
-    "main.js": "/salesman-deploy/static/js/main.e65534f3.chunk.js",
-    "main.js.map": "/salesman-deploy/static/js/main.e65534f3.chunk.js.map",
+    "main.js": "/salesman-deploy/static/js/main.ec78c9cc.chunk.js",
+    "main.js.map": "/salesman-deploy/static/js/main.ec78c9cc.chunk.js.map",
     "runtime-main.js": "/salesman-deploy/static/js/runtime-main.cc093f21.js",
     "runtime-main.js.map": "/salesman-deploy/static/js/runtime-main.cc093f21.js.map",
-    "static/js/2.51ff7360.chunk.js": "/salesman-deploy/static/js/2.51ff7360.chunk.js",
-    "static/js/2.51ff7360.chunk.js.map": "/salesman-deploy/static/js/2.51ff7360.chunk.js.map",
+    "static/js/2.ed525a7c.chunk.js": "/salesman-deploy/static/js/2.ed525a7c.chunk.js",
+    "static/js/2.ed525a7c.chunk.js.map": "/salesman-deploy/static/js/2.ed525a7c.chunk.js.map",
     "static/js/3.d929eabb.chunk.js": "/salesman-deploy/static/js/3.d929eabb.chunk.js",
     "static/js/3.d929eabb.chunk.js.map": "/salesman-deploy/static/js/3.d929eabb.chunk.js.map",
     "index.html": "/salesman-deploy/index.html",
     "static/css/main.50e62941.chunk.css.map": "/salesman-deploy/static/css/main.50e62941.chunk.css.map",
-    "static/js/2.51ff7360.chunk.js.LICENSE.txt": "/salesman-deploy/static/js/2.51ff7360.chunk.js.LICENSE.txt"
+    "static/js/2.ed525a7c.chunk.js.LICENSE.txt": "/salesman-deploy/static/js/2.ed525a7c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cc093f21.js",
-    "static/js/2.51ff7360.chunk.js",
+    "static/js/2.ed525a7c.chunk.js",
     "static/css/main.50e62941.chunk.css",
-    "static/js/main.e65534f3.chunk.js"
+    "static/js/main.ec78c9cc.chunk.js"
   ]
 }
