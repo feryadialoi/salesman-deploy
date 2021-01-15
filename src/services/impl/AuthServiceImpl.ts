@@ -17,6 +17,10 @@ export class AuthServiceImpl implements AuthService {
     public login(username: string, password: string): void {
         //
     }
+
+    public logout(): void {
+        this.authLocalPersistent.removeAuth();
+    }
 }
 
 export const useAuthService = (): AuthService => {

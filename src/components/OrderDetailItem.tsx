@@ -4,6 +4,7 @@ import { Order } from "../models/Order";
 interface OrderDetailItemProps {
     onClick?: () => void;
     order: Order;
+    status?: string;
 }
 
 export const OrderDetailItem: FC<OrderDetailItemProps> = (props) => {
@@ -14,7 +15,7 @@ export const OrderDetailItem: FC<OrderDetailItemProps> = (props) => {
                 <div>kode orderan {props.order.id}</div>
                 <div>{props.order.orderItems.length} jenis barang</div>
             </div>
-            <div className="p-2">status</div>
+            <div className="p-2">{props.status}</div>
         </div>
     );
 };

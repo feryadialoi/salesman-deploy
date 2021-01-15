@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Body } from "../components/Body";
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
@@ -18,6 +19,7 @@ const HomePage = () => {
     // service
     const homeService = useHomeService();
     const orderService = useOrderService();
+    const history = useHistory();
 
     // state
     const [profile, setProfile] = useState<Profile>();
@@ -30,12 +32,12 @@ const HomePage = () => {
     const initData = () => {
         const _orders = homeService.getOrdersLocalPersistent();
         dispatch(setOrdersOfOrderReducer(_orders));
+
+        setProfile(homeService.getProfile());
     };
 
     useEffect(() => {
         //
-        setProfile(homeService.getProfile());
-        setOrders(homeService.getOrders());
 
         initData();
     }, []);
@@ -51,8 +53,16 @@ const HomePage = () => {
                 }
             ></Header>
             <Body>
+                <Button
+                    title="logout"
+                    onClick={() => {
+                        homeService.logout().then(() => {
+                            history.push("/login");
+                        });
+                    }}
+                />
                 <List
-                    data={orderReduxOrders}
+                    data={[] as Order[]}
                     render={(order, orderIndex) => (
                         <div className="mb-8" key={orderIndex}>
                             <List

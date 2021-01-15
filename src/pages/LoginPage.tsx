@@ -17,28 +17,31 @@ const LoginPage = () => {
     return (
         <Container>
             <Body>
-                <div>Login</div>
-                <label>username</label>
-                <div>
+                <div className="flex items-center justify-center p-4">
+                    <div className="text-lg">Login</div>
+                </div>
+                <div className="mb-4">
+                    <label>username</label>
                     <input
-                        className="border-2 rounded"
+                        className="border-2 rounded w-full h-10 px-2"
                         onChange={(event) => {
                             setUsername(event.target.value);
                         }}
                     />
                 </div>
-                <div>
-                    <label>password</label>
+                <div className="mb-4">
+                    <label>Password</label>
                     <div>
                         <input
-                            className="border-2 rounded"
+                            type="password"
+                            className="border-2 rounded w-full h-10 px-2"
                             onChange={(event) => {
                                 setPassword(event.target.value);
                             }}
                         />
                     </div>
                 </div>
-                <div>
+                <div className="flex flex-col">
                     <Button
                         title="Login"
                         onClick={() => {

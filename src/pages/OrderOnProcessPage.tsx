@@ -52,6 +52,7 @@ const OrderOnProcessPage = () => {
                         <OrderDetailItem
                             key={itemIndex}
                             order={order}
+                            status={"gagal"}
                             onClick={() => {
                                 console.log(order);
                                 history.push("/orders/" + order.id + "?done=false");

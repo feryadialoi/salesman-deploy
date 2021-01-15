@@ -36,8 +36,10 @@ export class OrderLocalPersistentImpl implements OrderLocalPersistent {
 
     removeOrder(order: Order): void {
         const orders = this.getOrders();
-        const newOrders = orders.filter((item) => item.id === order.id && item.customerId === order.customerId);
+        const newOrders = orders.filter((item) => item.id !== order.id && item.customerId !== order.customerId);
+        console.log("removed, the rest", newOrders);
         this.setOrders(newOrders);
+        console.log("orderLocalPersistent.removeOrder");
     }
 
     getOrderById(id: number): Order {

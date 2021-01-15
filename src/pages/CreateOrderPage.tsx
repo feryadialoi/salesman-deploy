@@ -30,11 +30,15 @@ import { BottomContainer } from "../components/BottomContainer";
 import { Order } from "../models/Order";
 import { OrderItem } from "../models/OrderItem";
 import { AlertBox } from "../components/AlertBox";
+import { useInternetConnectionUtil } from "../utils/InternetConnectionUtil";
+import { InternetState } from "../redux/reducers/InternetConnection";
+import { setInternetConnectionInternetState } from "../redux/actions/InternetConnectionAction";
 
 const CreateOrderPage = () => {
     // service
     const history = useHistory();
     const orderService: OrderService = useOrderService();
+    const internetConnectionUtil = useInternetConnectionUtil();
 
     // utils
     const textFormatUtil = useTextFormatUtil();
@@ -46,12 +50,15 @@ const CreateOrderPage = () => {
     const [productVisible, isProductVisible] = useState(false);
     const [customer, setCustomer] = useState<Customer>();
     const [alertBoxVisible, isAlertBoxVisible] = useState(false);
+    const [createOrderResponseMessageVisible, isCreateOrderResponseMessageVisible] = useState(false);
+    const [createOrderResponseMessage, setCreateOrderResponseMessage] = useState("");
 
     // redux
     const cartReduxCartItems = useSelector<RootState, CartItem[]>((state) => state.cart.cartItems);
     const productReduxProducts = useSelector<RootState, Product[]>((state) => state.product.products);
     const customerReduxCustomers = useSelector<RootState, Customer[]>((state) => state.customer.customers);
     const dispatch = useDispatch();
+    const internetState = useSelector<RootState, InternetState>((state) => state.internetConnection.internetState);
 
     // local method
     const initData = () => {
@@ -136,6 +143,11 @@ const CreateOrderPage = () => {
         }
     };
 
+    const showCreateOrderResponseMessage = (visible: boolean, message: string = "") => {
+        isCreateOrderResponseMessageVisible(visible);
+        setCreateOrderResponseMessage(message);
+    };
+
     const processOrder = () => {
         if (customer && cartReduxCartItems.length > 0) {
             const orderItems = cartReduxCartItems.map(
@@ -144,12 +156,19 @@ const CreateOrderPage = () => {
             const order = new Order(Date.now(), customer?.id!, orderItems);
             orderService
                 .storeOrder(order)
-                .then(() => {
+                .then((res) => {
                     setCustomer(undefined);
                     dispatch(clearCartItemsOfCartReducer());
+                    console.log("store order res", res);
+
+                    // show message
+                    showCreateOrderResponseMessage(true, "Orderan sukses");
                 })
                 .catch((error) => {
-                    //
+                    console.log("store order error", error);
+
+                    // show message
+                    showCreateOrderResponseMessage(true, "Orderan Gagal,\n disimpan di lokal memory");
                 });
         } else {
             if (!customer) {
@@ -166,6 +185,15 @@ const CreateOrderPage = () => {
     useEffect(() => {
         //
         initData();
+        internetConnectionUtil
+            .getInternetState()
+            .then((res) => {
+                console.log(res);
+                dispatch(setInternetConnectionInternetState(res));
+            })
+            .catch(() => {
+                //
+            });
     }, []);
 
     //  loading ? (
@@ -274,6 +302,15 @@ const CreateOrderPage = () => {
                 }}
             />
 
+            <AlertBox
+                title="Buat Orderan"
+                visible={createOrderResponseMessageVisible}
+                onClose={() => {
+                    showCreateOrderResponseMessage(false);
+                }}
+                content={<div>{createOrderResponseMessage}</div>}
+            />
+
             <Header
                 title="Buat Orderan"
                 left={
@@ -284,15 +321,22 @@ const CreateOrderPage = () => {
                         }}
                     />
                 }
+                // right={
+                //     internetState ? (
+                //         <div className="bg-green-600 p-1 rounded text-white">{"Online"}</div>
+                //     ) : (
+                //         <div className="bg-red-600 p-1 rounded text-white">{"Ofline"}</div>
+                //     )
+                // }
             ></Header>
 
             <Body>
-                <div>
+                <div className="mb-4">
                     <div className="font-medium text-lg">Pelanggan</div>
-                    <div>{customer?.name ?? "Pelanggan belum dipilih"}</div>
+                    <div className="shadow p-2 pb-10 mb-4">{customer?.name ?? "Pelanggan belum dipilih"}</div>
                     <div className="flex">
                         <Button
-                            title="Pilih Pelanggan"
+                            title={customer == undefined ? "Pilih Pelanggan" : "Ganti Pelanggan"}
                             onClick={() => {
                                 isCustomerVisible(true);
                             }}
@@ -302,7 +346,7 @@ const CreateOrderPage = () => {
 
                 <div>
                     <div className="font-medium text-lg">Produk</div>
-                    <div className="w-screen">
+                    <div className="w-screen mb-2">
                         <Button
                             title="Tambah Produk"
                             onClick={() => {

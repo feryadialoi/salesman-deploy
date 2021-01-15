@@ -9,4 +9,6 @@ export interface HomeService {
     storeOrder(order: Order): Promise<void>;
 
     getOrdersLocalPersistent(): Order[];
+
+    logout(): Promise<void>;
 }

@@ -27,6 +27,7 @@ export const AlertBox: FC<AlertBoxProps> = (props) => {
         >
             <div
                 className="
+                    w-64
                     max-w-xs
                     bg-white
                     flex

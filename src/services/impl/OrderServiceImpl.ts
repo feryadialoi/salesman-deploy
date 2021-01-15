@@ -7,6 +7,7 @@ import { Customer } from "../../models/Customer";
 import { Order } from "../../models/Order";
 import { OrderRequest } from "../../models/OrderRequest";
 import { Product } from "../../models/Product";
+import { InternetConnectionUtil } from "../../utils/InternetConnectionUtil";
 import { OrderService } from "../OrderService";
 
 export class OrderServiceImpl implements OrderService {
@@ -18,18 +19,21 @@ export class OrderServiceImpl implements OrderService {
     storeOrder(order: Order): Promise<void> {
         console.log("store order", order);
 
+        const orderRequest = new OrderRequest(order.customerId, order.orderItems);
+
         this.orderLocalPersistent.setOrder(order);
 
-        const orderRequest = new OrderRequest(order.customerId, order.orderItems);
         return this.orderApiService
             .storeOrder(orderRequest)
             .then((result) => {
                 // sucess, remove local order data
                 console.log("%c order store to server succesfully", "color:green");
+                this.orderLocalPersistent.removeOrder(order);
             })
             .catch((error) => {
                 //
                 console.log("%c order store to server fail", "color:red");
+                throw new Error("order failed, order store to local instead");
             })
             .finally(() => {
                 //
@@ -50,6 +54,10 @@ export class OrderServiceImpl implements OrderService {
 
     getOrdersLocalPersistent(): Order[] {
         return this.orderLocalPersistent.getOrders();
+    }
+
+    getPurchases(): Promise<Order[]> {
+        return this.orderApiService.getPurchases();
     }
 }
 

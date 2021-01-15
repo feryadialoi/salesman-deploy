@@ -6,4 +6,6 @@ export interface AuthService {
     setAuth(auth: Auth): void;
 
     login(username: string, password: string): void;
+
+    logout(): void;
 }

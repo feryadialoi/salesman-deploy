@@ -26,7 +26,16 @@ const OrderDonePage = () => {
 
     // local method
     const initData = () => {
-        dispatch(setOrdersOfOrderReducer(orderService.getOrdersLocalPersistent()));
+        // dispatch(setOrdersOfOrderReducer(orderService.getOrdersLocalPersistent()));
+
+        orderService
+            .getPurchases()
+            .then((purchases) => {
+                setOrders(purchases);
+            })
+            .catch((error) => {
+                console.log("get purchases from api failed");
+            });
     };
 
     useEffect(() => {
@@ -52,6 +61,7 @@ const OrderDonePage = () => {
                         <OrderDetailItem
                             key={itemIndex}
                             order={order}
+                            status="terkirim"
                             onClick={() => {
                                 console.log(order);
                                 history.push("/orders/" + order.id + "?done=true");

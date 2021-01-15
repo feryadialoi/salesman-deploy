@@ -7,12 +7,15 @@ import { ProfileLocalPersistent } from "../../localpersistent/ProfileLocalPersis
 import { Order } from "../../models/Order";
 import { OrderRequest } from "../../models/OrderRequest";
 import { Profile } from "../../models/Profile";
+import { AuthService } from "../AuthService";
 import { HomeService } from "../HomeService";
+import { AuthServiceImpl } from "./AuthServiceImpl";
 
 export class HomeServiceImpl implements HomeService {
     private profileLocalPersistent: ProfileLocalPersistent = new ProfileLocalPersistentImpl();
     private orderApiService: OrderApiService = new OrderApiService();
     private orderLocalPersistent: OrderLocalPersistent = new OrderLocalPersistentImpl();
+    private authService: AuthService = new AuthServiceImpl();
 
     getProfile(): Profile {
         return this.profileLocalPersistent.getProfile();
@@ -33,6 +36,10 @@ export class HomeServiceImpl implements HomeService {
             order.orderItems,
         );
         this.orderApiService.storeOrder(orderRequest);
+    }
+
+    async logout(): Promise<void> {
+        this.authService.logout();
     }
 }
 
